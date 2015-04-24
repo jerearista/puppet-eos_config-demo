@@ -51,7 +51,7 @@ class eos_config::interfaces (
   $purge = false,
   ) {
 
-  require rbeapi
+  require eos_config
 
   $defaults = {
     ensure => present,

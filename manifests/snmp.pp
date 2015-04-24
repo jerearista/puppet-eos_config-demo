@@ -7,6 +7,9 @@ class eos_config::snmp (
   #$chassis_id       = hiera('chassis_id', ''),
   $communities      = hiera('communities')
 ) {
+
+  require eos_config
+
   #
   # --hiera example--
   # snmp::contact: 'Fezig'
@@ -21,8 +24,6 @@ class eos_config::snmp (
     ensure => present,
     group  => ro,
   }
-
-  require rbeapi
 
   #eos_snmp { 'settings':
   #  contact          => $contact,

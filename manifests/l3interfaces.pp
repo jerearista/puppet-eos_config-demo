@@ -50,7 +50,7 @@ class eos_config::l3interfaces (
   $purge = false,
   ) {
 
-  require rbeapi
+  require eos_config
 
   $defaults = {
     ensure => present,

@@ -50,7 +50,7 @@ class eos_config::vlans (
   $purge = false,
   ) {
 
-  require rbeapi
+  require eos_config
 
   $defaults = {
     ensure => present,

@@ -4,6 +4,9 @@ class eos_config::switchports (
   $trunk = '',
   $portchannels = false
 ) {
+
+  require eos_config
+
   # In puppet 3, unspecified parameters will automatically be looked up in hiera,
   # thus the following are not necessary:
   #$access = hiera('access', ''),
@@ -24,24 +27,18 @@ class eos_config::switchports (
   $defaults = {
     ensure => present,
   }
+
   $access_defaults = {
     ensure => present,
     mode   => access,
     purge  => $purge,
   }
+
   $trunk_defaults = {
     ensure => present,
     mode   => trunk,
     purge  => $purge,
   }
-  #$portchannels = hiera('portchannels', false)
-
-  require rbeapi
-
-  #resources { 'eos_switchport':
-  #  purge  => $purge,
-  #  noop   => true,
-  #}
 
   # generate a resource for each interface entry
   #create_resources(eos_switchport, $portchannels, $defaults)

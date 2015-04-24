@@ -55,7 +55,7 @@ class eos_config::portchannels (
   $purge = false,
   ) {
 
-  require rbeapi
+  require eos_config
 
   $defaults = {
     ensure => present,
