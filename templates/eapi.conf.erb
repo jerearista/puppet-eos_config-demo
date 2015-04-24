@@ -1,0 +1,18 @@
+<%# eos_config/templates/eapi.conf.erb %>
+# Managed by Puppet Class['eos_vlan']
+[connection:localhost]
+<% if @host -%>
+host: <%= @host %>
+<% end -%>
+<% if @_transport -%>
+transport: <%= @_transport %>
+<% end -%>
+<% if @_username -%>
+username: <%= @_username %>
+<% end -%>
+<% if @_password -%>
+password: <%= @_password %>
+<% end -%>
+<% if @port -%>
+port: <%= @port %>
+<% end -%>
