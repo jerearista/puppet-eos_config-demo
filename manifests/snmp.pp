@@ -34,5 +34,5 @@ class eos_config::snmp (
 
   # generate a resource for each entry in $vlans
   create_resources(eos_snmp, $snmp)
-  create_resources(snmp_community, $communities, $defaults)
+  #create_resources(snmp_community, $communities, $defaults)
 }
