@@ -1,0 +1,44 @@
+---
+message: "This node is using AristaEOS OS data"
+
+classes:
+  - eos_config::snmp
+  - eos_config::vlans
+#  - notify
+#  - eos_ntp_server
+#eos_ntp_server::name: 10.68.49.204
+#eos_ntp_server::ensure: present
+
+vlans:
+  1: { vlan_name: default }
+  2: { vlan_name: TestVlan_2 }
+  9: { vlan_name: Demo_vlan }
+  100: { vlan_name: TestVlan_100, enable: false }
+  101: { vlan_name: TEST_VLAN_101 }
+  102: { vlan_name: TEST_VLAN_102 }
+  103: { vlan_name: TEST_VLAN_103 }
+  104: { vlan_name: TEST_VLAN_104 }
+  105: { vlan_name: TEST_VLAN_105 }
+  106: { vlan_name: TEST_VLAN_106 }
+  107: { vlan_name: TEST_VLAN_107 }
+  108: { vlan_name: TEST_VLAN_108 }
+
+# setting this value to true will remove any vlans not explicitly configured
+eos_config::vlans::purge: false
+
+ntp::enable: true
+ntp::servers:
+  - 172.16.130.10
+
+#eos_config::snmp::contact: 'Fezig'
+#eos_config::snmp::location: 'The cliffs of insanity'
+
+snmp:
+  settings:
+    contact: 'Fezig'
+    location: 'The cliffs of insanity'
+
+communities:
+  public: {group: ro}
+  private: {group: rw}
+  devops: {group: rw}
