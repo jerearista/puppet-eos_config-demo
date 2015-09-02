@@ -3,7 +3,7 @@
 #
 #  sudo puppet apply /etc/puppet/modules/eos_config/manifests/demo_derver/ztps.pp
 #
-class {'eos_config::demo_server':
+class {'eos_config::demo_server::demo_server':
   confdir       => '/etc/puppet',
   owner         => 'ztpsadmin',
   group         => 'ztpsadmin',

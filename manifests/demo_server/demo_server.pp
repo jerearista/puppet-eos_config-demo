@@ -1,4 +1,4 @@
-class eos_config::demo_server (
+class eos_config::demo_server::demo_server (
   $confdir = '/etc/puppetlabs/puppet',
   $owner = 'ztpsadmin',
   $group = 'ztpsadmin',
@@ -9,9 +9,11 @@ class eos_config::demo_server (
   if $is_pe {
     $masterservice = 'pe-puppetserver'
     #$confdir = '/etc/puppetlabs/puppet',
+    $libdir = '/var/opt/lib/pe-puppet/lib'
   } else {
     $masterservice = 'puppetmaster'
     #$confdir = '/etc/puppet',
+    $libdir = '/var/lib/puppet/lib'
   }
 
   if $environment {
@@ -63,7 +65,7 @@ class eos_config::demo_server (
   file { "${confdir}/hiera.yaml":
     ensure  => file,
     #source => 'puppet:///modules/eos_config/hiera.yaml',
-    content => template('hiera.yaml.erb'),
+    content => template('eos_config/hiera.yaml.erb'),
     notify  => Service['puppetmaster'],
   }
 
@@ -116,7 +118,7 @@ class eos_config::demo_server (
 
   exec { 'puppet plugin download':
     path    => '/opt/puppet/bin:/usr/bin',
-    creates => '/var/lib/puppet/lib/puppet_x/eos',
+    creates => "${libdir}/puppet_x/eos",
   }
 
   service { 'puppetmaster':
