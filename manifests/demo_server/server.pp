@@ -1,23 +1,31 @@
-#class eos_config::master {
-
-  #$confdir = '/etc/puppet'
-  $confdir = '/etc/puppetlabs/puppet'
-  #$confdir = generate('puppet', 'config', 'print', 'confdir')
-
-  $manifestdir = "${confdir}/environments/production/manifests"
-  $moduledir = "${confdir}/environments/production/modules"
+class eos_config::demo_server (
+  $confdir = '/etc/puppetlabs/puppet',
+  $owner = 'ztpsadmin',
+  $group = 'ztpsadmin',
+  $environment = undef,
+  $master_enable = true,
+) {
 
   if $is_pe {
     $masterservice = 'pe-puppetserver'
+    #$confdir = '/etc/puppetlabs/puppet',
   } else {
     $masterservice = 'puppetmaster'
+    #$confdir = '/etc/puppet',
   }
 
+  if $environment {
+    $envdir = "${confdir}/environments/${environment}"
+  } else {
+    $envdir = $confdir
+  }
+
+  $manifestdir = "${envdir}/manifests"
+  $moduledir = "${confdir}/modules"
+
   File {
-    owner => ubuntu,
-    group => ubuntu,
-    #owner => ztpsadmin,
-    #group => ztpsadmin,
+    owner => $owner,
+    group => $group,
     mode  => '0664',
   }
 
@@ -40,13 +48,13 @@
     source => 'puppet:///modules/eos_config/site.pp',
   }
 
-  file { "${moduledir}":
+  file { $moduledir:
     ensure => directory,
     mode   => '0755',
   }
 
   # r10k Puppetfile
-  file { "${moduledir}/../Puppetfile":
+  file { "${envdir}/../Puppetfile":
     ensure => file,
     source => 'puppet:///modules/eos_config/Puppetfile',
     require => File["${moduledir}"],
@@ -114,7 +122,7 @@
   service { 'puppetmaster':
     name   => $masterservice,
     ensure => running,
-    enable => true,
+    enable => $master_enable,
   }
 
-#}
+}
