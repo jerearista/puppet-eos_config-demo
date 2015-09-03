@@ -1,6 +1,25 @@
 #class eos_config::master {
 
-  $confdir = '/etc/puppet'
+  #$confdir = '/etc/puppet'
+  $confdir = '/etc/puppetlabs/puppet'
+  #$confdir = generate('puppet', 'config', 'print', 'confdir')
+
+  $manifestdir = "${confdir}/environments/production/manifests"
+  $moduledir = "${confdir}/environments/production/modules"
+
+  if $is_pe {
+    $masterservice = 'pe-puppetserver'
+  } else {
+    $masterservice = 'puppetmaster'
+  }
+
+  File {
+    owner => ubuntu,
+    group => ubuntu,
+    #owner => ztpsadmin,
+    #group => ztpsadmin,
+    mode  => '0664',
+  }
 
   package { 'tree':
     ensure => present,
@@ -11,20 +30,26 @@
     provider => gem,
   }
 
-  File {
-    owner => ztpsadmin,
-    group => ztpsadmin,
-    mode  => '0644',
+  package { 'r10k':
+    ensure   => present,
+    provider => gem,
   }
 
-  file { "${confdir}/manifests/site.pp":
+  file { "${manifestdir}/site.pp":
     ensure => file,
     source => 'puppet:///modules/eos_config/site.pp',
   }
 
-  file { "${confdir}/modules":
+  file { "${moduledir}":
     ensure => directory,
     mode   => '0755',
+  }
+
+  # r10k Puppetfile
+  file { "${moduledir}/../Puppetfile":
+    ensure => file,
+    source => 'puppet:///modules/eos_config/Puppetfile',
+    require => File["${moduledir}"],
   }
 
   file { "${confdir}/hiera.yaml":
@@ -81,13 +106,14 @@
   }
 
   exec { 'puppet plugin download':
-    path    => '/usr/bin',
+    path    => '/opt/puppet/bin:/usr/bin',
     creates => '/var/lib/puppet/lib/puppet_x/eos',
   }
 
   service { 'puppetmaster':
+    name   => $masterservice,
     ensure => running,
-    enable => false,
+    enable => true,
   }
 
 #}

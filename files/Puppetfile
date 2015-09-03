@@ -1,0 +1,13 @@
+moduledir './modules/'
+
+mod 'aristanetworks/eos', '1.2.0'
+
+mod 'aristanetworks/netdev_stdlib_eos', '1.0.0'
+
+#mod 'eos',
+#  :git => 'http://github.com/arista-eosplus/puppet-eos',
+#  :ref => 'master'
+
+mod 'eos_config',
+  :git => 'http://github.com/jerearista/puppet-eos_config-demo'
+  #:ref => 'ravello'
