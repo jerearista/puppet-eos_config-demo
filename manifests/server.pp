@@ -53,9 +53,10 @@
   }
 
   file { "${confdir}/hiera.yaml":
-    ensure => file,
-    source => 'puppet:///modules/eos_config/hiera.yaml',
-    notify => Service['puppetmaster'],
+    ensure  => file,
+    #source => 'puppet:///modules/eos_config/hiera.yaml',
+    content => template('hiera.yaml.erb'),
+    notify  => Service['puppetmaster'],
   }
 
   file { "${confdir}/hieradata":
