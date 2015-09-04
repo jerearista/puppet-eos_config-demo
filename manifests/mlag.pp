@@ -9,7 +9,7 @@ class eos_config::mlag (
 
   eos_vlan { '4094':
     vlan_name => 'MLAG_Control_Plane',
-    #trunk_groups => ['mlag1', 'mlag2'],
+    #  https://github.com/arista-eosplus/puppet-eos/issues/38
     #trunk_groups => ['mlagpeer'],
     before    => Eos_mlag['settings'],
   }
@@ -26,7 +26,6 @@ class eos_config::mlag (
 
   eos_ipinterface { $local_interface:
     ensure  => present,
-    #address => "172.16.10.1/24",
     address => $local_address,
     require => Eos_interface[$local_interface],
   }
@@ -35,8 +34,9 @@ class eos_config::mlag (
 
   eos_portchannel { $peer_link:
     ensure    => present,
-    lacp_mode => active,
+    # NOTE: Issue - lacp_mode is not idempotent on first-run
     members   => $members,
+    lacp_mode => active,
     require   => Eos_interface[$peer_link],
   }
 
@@ -44,7 +44,7 @@ class eos_config::mlag (
     ensure  => present,
     mode    => trunk,
     require => Eos_interface[$peer_link],
-    # ToDo: Need trunk_group property
+    # ToDo: Need trunk_group property (Redmine #480)
   }
 
   eos_mlag { 'settings':
