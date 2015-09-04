@@ -1,9 +1,10 @@
 # See https://docs.puppetlabs.com/learning/templates.html
 # See https://docs.puppetlabs.com/learning/modules2.html
-class eos_config::conf ($host = "localhost",
-                        $transport = https,
-                        $username = admin,
-                        $password = "") {
+class eos_config::eapi_conf ($host = "localhost",
+                             $transport = https,
+                             $username = admin,
+                             $password = ""
+) {
 
   # Uncomment for "online" gem fetching
   #
