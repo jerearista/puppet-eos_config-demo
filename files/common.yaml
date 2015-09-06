@@ -1,8 +1,8 @@
 ---
 message: "This node is using common data"
 
-#classes:
-#  - notify
+classes:
+  - eos_config::snmp
 
 ntp::enable: true
 ntp::servers:

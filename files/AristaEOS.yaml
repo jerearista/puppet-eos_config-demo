@@ -43,8 +43,7 @@ communities:
   public: {group: ro}
   private: {group: rw}
   devops: {group: rw}
+  #devops: {group: rw, acl: 101}
 
 syslog_servers:
-  172.16.130.10:
-    source_interface: 'Management1'
-    severity_level: 4
+  172.16.130.10: {}
