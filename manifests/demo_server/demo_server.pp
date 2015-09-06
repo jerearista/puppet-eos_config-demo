@@ -35,7 +35,14 @@ class eos_config::demo_server::demo_server (
     ensure => present,
   }
 
-  package { 'ruby-dev':
+  $rubydev = $osfamily ? {
+    'Debian' => 'ruby-dev',
+    'RedHat' => 'ruby-devel',
+    default  => 'ruby-dev',
+  }
+
+  package { 'Ruby development environment':
+    name     => $rubydev,
     ensure   => present,
   }
 
