@@ -6,7 +6,7 @@ class eos_config::demo_server::demo_server (
   $master_enable = true,
 ) {
 
-  if $is_pe {
+  if $is_pe == true {
     $masterservice = 'pe-puppetserver'
     #$confdir = '/etc/puppetlabs/puppet',
     $libdir = '/var/opt/lib/pe-puppet/lib'
@@ -33,6 +33,10 @@ class eos_config::demo_server::demo_server (
 
   package { 'tree':
     ensure => present,
+  }
+
+  package { 'ruby-dev':
+    ensure   => present,
   }
 
   package { 'rbeapi':
@@ -90,6 +94,24 @@ class eos_config::demo_server::demo_server (
     ensure => file,
     source => 'puppet:///modules/eos_config/AristaEOS.yaml',
     require => File["${confdir}/hieradata/oses"],
+  }
+
+  file { "${confdir}/hieradata/roles":
+    ensure => directory,
+    mode   => '0755',
+    require => File["${confdir}/hieradata"],
+  }
+
+  file { "${confdir}/hieradata/roles/spine.yaml":
+    ensure => file,
+    source => 'puppet:///modules/eos_config/spine.yaml',
+    require => File["${confdir}/hieradata/roles"],
+  }
+
+  file { "${confdir}/hieradata/roles/leaf.yaml":
+    ensure => file,
+    source => 'puppet:///modules/eos_config/leaf.yaml',
+    require => File["${confdir}/hieradata/roles"],
   }
 
   file { "${confdir}/hieradata/nodes":
