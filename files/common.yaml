@@ -3,6 +3,7 @@ message: "This node is using common data"
 
 classes:
   - eos_config::snmp
+  - eos_config::name_servers
 
 ntp::enable: true
 ntp::servers:
@@ -11,3 +12,5 @@ ntp::servers:
 eos_config::snmp::contact: 'Fezig'
 eos_config::snmp::location: 'The cliffs of insanity'
 
+eos_config::name_servers::name_servers:
+  - 172.16.130.10
