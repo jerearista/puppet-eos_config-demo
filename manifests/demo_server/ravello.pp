@@ -10,3 +10,20 @@ class {'eos_config::demo_server::demo_server':
   environment   => 'production',
   master_enable => true,
 }
+
+$hieradir = '/etc/puppetlabs/puppet/hieradata'
+
+file { "${hieradir}/nodes/larry.localdomain.yaml":
+  ensure => link,
+  target => "${hieradir}/nodes/veos1.yaml",
+}
+
+file { "${hieradir}/nodes/curly.localdomain.yaml":
+  ensure => link,
+  target => "${hieradir}/nodes/veos2.yaml",
+}
+
+file { "${hieradir}/nodes/moe.localdomain.yaml":
+  ensure => link,
+  target => "${hieradir}/nodes/veos3.yaml",
+}
