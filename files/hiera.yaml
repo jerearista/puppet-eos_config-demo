@@ -4,6 +4,7 @@
 :hierarchy:
   - "nodes/%{clientcert}"
   - "tiers/%{application_tier}"
+  - "roles/%{role}"
   - "oses/%{operatingsystem}"
   - common
 
