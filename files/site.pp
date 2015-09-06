@@ -20,7 +20,19 @@ Exec { path => "/usr/bin:/usr/sbin:/bin:/sbin" }
 
 #hiera_include('classes')
 
-node /veos\d+/ {
+#node /veos\d+/ {
+#  hiera_include('classes')
+#}
+
+node /(veos1|veos2|larry|curly)/ {
+  # include eos_config::role::spine
+  $role = spine
+  hiera_include('classes')
+}
+
+node /(veos3|moe)/ {
+  # include eos_config::role::leaf
+  $role = leaf
   hiera_include('classes')
 }
 
@@ -28,7 +40,7 @@ node default {
   # This is where you can declare classes for all nodes.
   # Example:
   #   class { 'my_class': }
-  notify { 'env: demo - site.pp  ***default***': }
+  notify { 'site.pp - Environment: demo - Node: ***default***': }
 
   #
   # Use hiera for classification
