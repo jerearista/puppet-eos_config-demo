@@ -4,6 +4,7 @@ message: "This node is using AristaEOS OS data"
 classes:
   - eos_config::snmp
   - eos_config::vlans
+  - eos_config::syslog_servers
 #  - notify
 #  - eos_ntp_server
 #eos_ntp_server::name: 10.68.49.204
@@ -42,3 +43,8 @@ communities:
   public: {group: ro}
   private: {group: rw}
   devops: {group: rw}
+
+syslog_servers:
+  172.16.130.10:
+    source_interface: 'Management1'
+    severity_level: 4
