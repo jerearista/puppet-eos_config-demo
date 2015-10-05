@@ -57,8 +57,8 @@ class eos_config::l3interfaces (
   }
 
   resources { 'eos_ipinterface':
-    purge  => $purge,
-    noop   => false,
+    purge => $purge,
+    noop  => false,
   }
 
   # generate a resource for each entry in $vlans

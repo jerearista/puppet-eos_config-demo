@@ -1,9 +1,10 @@
 # See https://docs.puppetlabs.com/learning/templates.html
 # See https://docs.puppetlabs.com/learning/modules2.html
-class eos_config::eapi_conf ($host = "localhost",
-                             $transport = https,
-                             $username = admin,
-                             $password = ""
+class eos_config::eapi_conf (
+  $host = 'localhost',
+  $transport = https,
+  $username = admin,
+  $password = ''
 ) {
 
   # Uncomment for "online" gem fetching
@@ -17,19 +18,19 @@ class eos_config::eapi_conf ($host = "localhost",
   #   cd modules/eos_config/files; gem fetch rbeapi
   #   ... then update the filenames, below
   #
-  $rbeapi_file = "rbeapi-0.1.0.gem"
-  file {"rbeapi-gem":
-    name => "/mnt/flash/$rbeapi_file",
+  $rbeapi_file = 'rbeapi-0.1.0.gem'
+  file {'rbeapi-gem':
     ensure => file,
-    owner => root,
-    group => eosadmin,
-    source => "puppet:///modules/eos_config/$rbeapi_file",
+    name   => "/mnt/flash/${rbeapi_file}",
+    owner  => root,
+    group  => eosadmin,
+    source => "puppet:///modules/eos_config/${rbeapi_file}",
   }
   package { 'rbeapi':
-    ensure => installed,
+    ensure   => installed,
     provider => gem,
-    source => "/mnt/flash/$rbeapi_file",
-    require => File[rbeapi-gem],
+    source   => '/mnt/flash/$rbeapi_file',
+    require  => File[rbeapi-gem],
   }
 
   # Facts:
@@ -48,7 +49,7 @@ class eos_config::eapi_conf ($host = "localhost",
   # This file is no longer required at EOS 4.14.5, if using unix-sockets
   if $major >= 4 and $minor >= 14 and $patch >= 5 {
     if $transport {
-      if $transport == "socket" or $transport == "unix-socket" {
+      if $transport == 'socket' or $transport == 'unix-socket' {
         # We really don't need anything further.  We can drop an empty file
         #  or nothing at all.
         $no_file = true
@@ -74,12 +75,12 @@ class eos_config::eapi_conf ($host = "localhost",
   #notify { "$::operatingsystemrelease -> $major, $minor, $patch - http_local: $http_local": }
 
   file { 'eapi.conf':
-    path => '/mnt/flash/eapi.conf',
-    ensure => $no_file?{
+    ensure  => $no_file?{
                 false => file,
-                true => absent,
+                true  => absent,
               },
-    content => template("eos_config/eapi.conf.erb"),
+    path    => '/mnt/flash/eapi.conf',
+    content => template('eos_config/eapi.conf.erb'),
     #require => Package['rbeapi'],
   }
 }
