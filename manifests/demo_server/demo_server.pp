@@ -6,7 +6,7 @@ class eos_config::demo_server::demo_server (
   $master_enable = true,
 ) {
 
-  if $is_pe == true {
+  if $::is_pe == true {
     $masterservice = 'pe-puppetserver'
     #$confdir = '/etc/puppetlabs/puppet',
     $libdir = '/var/opt/lib/pe-puppet/lib'
@@ -35,15 +35,15 @@ class eos_config::demo_server::demo_server (
     ensure => present,
   }
 
-  $rubydev = $osfamily ? {
+  $rubydev = $::osfamily ? {
     'Debian' => 'ruby-dev',
     'RedHat' => 'ruby-devel',
     default  => 'ruby-dev',
   }
 
   package { 'Ruby development environment':
-    name     => $rubydev,
-    ensure   => present,
+    ensure => present,
+    name   => $rubydev,
   }
 
   package { 'rbeapi':
@@ -68,9 +68,9 @@ class eos_config::demo_server::demo_server (
 
   # r10k Puppetfile
   file { "${envdir}/../Puppetfile":
-    ensure => file,
-    source => 'puppet:///modules/eos_config/Puppetfile',
-    require => File["${moduledir}"],
+    ensure  => file,
+    source  => 'puppet:///modules/eos_config/Puppetfile',
+    require => File[$moduledir],
   }
 
   file { "${confdir}/hiera.yaml":
@@ -92,56 +92,56 @@ class eos_config::demo_server::demo_server (
   }
 
   file { "${confdir}/hieradata/oses":
-    ensure => directory,
-    mode   => '0755',
+    ensure  => directory,
+    mode    => '0755',
     require => File["${confdir}/hieradata"],
   }
 
   file { "${confdir}/hieradata/oses/AristaEOS.yaml":
-    ensure => file,
-    source => 'puppet:///modules/eos_config/AristaEOS.yaml',
+    ensure  => file,
+    source  => 'puppet:///modules/eos_config/AristaEOS.yaml',
     require => File["${confdir}/hieradata/oses"],
   }
 
   file { "${confdir}/hieradata/roles":
-    ensure => directory,
-    mode   => '0755',
+    ensure  => directory,
+    mode    => '0755',
     require => File["${confdir}/hieradata"],
   }
 
   file { "${confdir}/hieradata/roles/spine.yaml":
-    ensure => file,
-    source => 'puppet:///modules/eos_config/spine.yaml',
+    ensure  => file,
+    source  => 'puppet:///modules/eos_config/spine.yaml',
     require => File["${confdir}/hieradata/roles"],
   }
 
   file { "${confdir}/hieradata/roles/leaf.yaml":
-    ensure => file,
-    source => 'puppet:///modules/eos_config/leaf.yaml',
+    ensure  => file,
+    source  => 'puppet:///modules/eos_config/leaf.yaml',
     require => File["${confdir}/hieradata/roles"],
   }
 
   file { "${confdir}/hieradata/nodes":
-    ensure => directory,
-    mode   => '0755',
+    ensure  => directory,
+    mode    => '0755',
     require => File["${confdir}/hieradata"],
   }
 
   file { "${confdir}/hieradata/nodes/veos1.yaml":
-    ensure => file,
-    source => 'puppet:///modules/eos_config/veos1.yaml',
+    ensure  => file,
+    source  => 'puppet:///modules/eos_config/veos1.yaml',
     require => File["${confdir}/hieradata/nodes"],
   }
 
   file { "${confdir}/hieradata/nodes/veos2.yaml":
-    ensure => file,
-    source => 'puppet:///modules/eos_config/veos2.yaml',
+    ensure  => file,
+    source  => 'puppet:///modules/eos_config/veos2.yaml',
     require => File["${confdir}/hieradata/nodes"],
   }
 
   file { "${confdir}/hieradata/nodes/veos3.yaml":
-    ensure => file,
-    source => 'puppet:///modules/eos_config/veos3.yaml',
+    ensure  => file,
+    source  => 'puppet:///modules/eos_config/veos3.yaml',
     require => File["${confdir}/hieradata/nodes"],
   }
 
@@ -151,8 +151,8 @@ class eos_config::demo_server::demo_server (
   }
 
   service { 'puppetmaster':
-    name   => $masterservice,
     ensure => running,
+    name   => $masterservice,
     enable => $master_enable,
   }
 
