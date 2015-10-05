@@ -1,0 +1,6 @@
+---
+vlans:
+  1: { vlan_name: default }
+  9: { vlan_name: Demo_vlan }
+  100: { vlan_name: TestVlan_100, enable: false }
+  101: { vlan_name: TEST_VLAN_101 }

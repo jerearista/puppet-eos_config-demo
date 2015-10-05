@@ -8,7 +8,7 @@ class eos_config::ntp (
     ensure => present,
   }
 
-  if $operatingsystem == 'AristaEOS' {
+  if $::operatingsystem == 'AristaEOS' {
     # generate a resource for each entry in $vlans
     eos_ntp_config { 'settings':
       source_interface => $source_interface,
