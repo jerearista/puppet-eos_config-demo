@@ -1,0 +1,8 @@
+--- 
+fixtures: 
+  repositories: 
+    eos: 
+      ref: v1.2.0
+      repo: "https://github.com/arista-eosplus/puppet-eos"
+  symlinks: 
+    eos_config: "#{source_dir}"
