@@ -33,7 +33,7 @@ class eos_config::snmp (
   #}
     #source_interface => $source_interface if $source_interface,
 
-  if $operatingsystem == 'AristaEOS' {
+  if $::operatingsystem == 'AristaEOS' {
     # generate a resource for each entry in $vlans
     create_resources(eos_snmp, $snmp)
     create_resources(snmp_community, $communities, $defaults)

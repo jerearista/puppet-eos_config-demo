@@ -1,7 +1,7 @@
 define eos_config::mlag_portchannel (
+  $members,
   $mlag = undef,
   $port_channel = undef,
-  $members,
   $trunk_native_vlan = undef,
   $trunk_allowed_vlans = undef,
 ) {
@@ -25,7 +25,7 @@ define eos_config::mlag_portchannel (
   }
 
   eos_switchport { $port_channelid:
-    mode => trunk,
+    mode                => trunk,
     trunk_native_vlan   => $trunk_native_vlan,
     trunk_allowed_vlans => $trunk_allowed_vlans,
   }
