@@ -8,7 +8,7 @@ require 'spreadsheet'
 module Puppet::Parser::Functions
   newfunction(:get_loopback, :type => :rvalue) do |args|
 
-    file = '/home/ztpsadmin/Demo_IPAM.xls'
+    file = args[0]
     sheet = 'loopbacks'
     key_fact = 'hostname'
     stagefile = file + '.bak'
