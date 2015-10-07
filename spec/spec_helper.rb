@@ -1,17 +1,12 @@
-dir = File.expand_path(File.dirname(__FILE__))
-$LOAD_PATH.unshift File.join(dir, 'lib')
+require 'rspec-puppet'
+require 'puppetlabs_spec_helper/module_spec_helper'
 
-require 'mocha'
-require 'puppet'
-require 'rspec'
-require 'spec/autorun'
+fixture_path = File.expand_path(File.join(__FILE__, '..', 'fixtures'))
 
-Spec::Runner.configure do |config|
-    config.mock_with :mocha
-end
-
-# We need this because the RAL uses 'should' as a method.  This
-# allows us the same behaviour but with a different method name.
-class Object
-    alias :must :should
+RSpec.configure do |c|
+  c.module_path = File.join(fixture_path, 'modules')
+  c.manifest_dir = File.join(fixture_path, 'manifests')
+  c.environmentpath = File.join(Dir.pwd, 'spec')
+  # http://rnelson0.com/2014/12/31/puppet-rspec-tests-with-hiera-data/
+  c.hiera_config = File.expand_path(File.join(__FILE__, '../fixtures/hiera.yaml'))
 end
