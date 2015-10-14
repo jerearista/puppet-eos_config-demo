@@ -7,7 +7,6 @@ class eos_config::snmp (
   #$source_interface = hiera('source_interface', undef),
   $communities      = hiera('communities')
 ) {
-
   require Class['eos_config']
 
   #
