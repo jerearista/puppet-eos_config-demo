@@ -1,4 +1,4 @@
-class eos_config {
+class eos_config (
   $inifile_ver = '3.0.0',
   $net_http_unix_ver = '0.2.1',
   $netaddr_ver = '1.5.0',
