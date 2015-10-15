@@ -1,4 +1,4 @@
-export PATH="/opt/puppetlabs/puppet/bin/gem:${PATH}"
+export PATH="/opt/puppetlabs/puppet/bin:${PATH}"
 
 gem  fetch inifile --version '= 3.0.0'
 gem  fetch netaddr --version '= 1.5.0'
