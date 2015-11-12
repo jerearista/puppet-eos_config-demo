@@ -1,14 +1,14 @@
 class eos_config::snmp (
   $purge = false,
   $snmp             = hiera('snmp'),
-  #$contact          = hiera('contact', ''),
-  #$location         = hiera('location', ''),
-  #$source_interface = hiera('source_interface', ''),
-  #$chassis_id       = hiera('chassis_id', ''),
+  #$contact          = hiera('contact', undef),
+  #$chassis_id       = hiera('location', undef),
+  #$location         = hiera('location', undef),
+  #$source_interface = hiera('source_interface', undef),
   $communities      = hiera('communities')
 ) {
 
-  require eos_config
+  #require eos_config
 
   #
   # --hiera example--
@@ -21,18 +21,21 @@ class eos_config::snmp (
   #
 
   $defaults = {
-    ensure => present,
+    #ensure => present,
     group  => ro,
   }
 
   #eos_snmp { 'settings':
+  #  chassis_id       => $chassis_id,
   #  contact          => $contact,
   #  location         => $location,
-  #  chassis_id       => $chassis_id,
+  #  source_interface => $source_interface,
   #}
     #source_interface => $source_interface if $source_interface,
 
-  # generate a resource for each entry in $vlans
-  create_resources(eos_snmp, $snmp)
-  create_resources(snmp_community, $communities, $defaults)
+  if $::operatingsystem == 'AristaEOS' {
+    # generate a resource for each entry in $vlans
+    create_resources(eos_snmp, $snmp)
+    create_resources(snmp_community, $communities, $defaults)
+  }
 }

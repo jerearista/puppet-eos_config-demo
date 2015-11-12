@@ -1,0 +1,41 @@
+---
+classes:
+  - eos_config::loopback
+  - eos_config::portchannel
+  #- eos_config::switchports
+  #- eos_config::interfaces
+  #- eos_config::l3interfaces
+  #- eos_config::switchports
+
+vlans:
+  200: { vlan_name: Only_on_veos3 }
+
+# setting this value to true will remove any vlans not explicitly configured
+eos_config::vlans::purge: false
+
+eos_config::loopback::address: 1.1.1.3/32
+
+interfaces:
+  Management1: { description: 'enabled by Puppet', enable: true }
+  #Ethernet2: { description: 'Shutdown by Puppet', enable: false }
+  #Port-Channel34: { description: 'Made by Puppet', enable: false }
+
+l3interfaces:
+  #Ethernet1: { address: '172.16.131.101/24' }
+  Ethernet3: { address: '192.0.2.3/24',
+    helper_addresses: ['10.0.2.2', '10.0.3.2'] }
+  #Management1: { address: '192.168.0.2/24', mtu: '1500' }
+
+#eos_config::switchports::access: ['Ethernet1', 'Ethernet2']
+#eos_config::switchports::trunk: ['Ethernet3', 'Port-Channel34']
+#eos_config::switchports::access: ['Ethernet2']
+#eos_config::switchports::trunk: ['Port-Channel34']
+
+eos_config::portchannel::port_channel: Port-Channel1
+eos_config::portchannel::members: ['Ethernet1', 'Ethernet2']
+#portchannels:
+#  Port-Channel1:
+#    members: ['Ethernet1', 'Ethernet2']
+#    lacp_mode: active
+#    minimum_links: 1
+

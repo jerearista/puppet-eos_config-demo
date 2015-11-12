@@ -1,0 +1,31 @@
+{
+  "name": "jerearista-eos_config",
+  "version": "0.2.0",
+  "author": "Arista Networks, EOS+ Consulting Services",
+  "summary": "Sample manifest module for configuring Arista EOS devices",
+  "license": "BSD-3-Clause",
+  "source": "http://github.com/jerearista/puppet-eos_config-demo",
+  "project_page": "http://github.com/jerearista/puppet-eos_config-demo",
+  "issues_url": "http://github.com/jerearista/puppet-eos_config-demo/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "AristaEOS",
+      "operatingsystemrelease": [
+        "4.13.7M",
+        "4.14",
+        "4.15"
+      ]
+    }
+  ],
+  "tags": [
+    "network",
+    "netdev",
+    "arista",
+    "eos"
+  ],
+  "dependencies": [
+    {"name":"puppetlabs-stdlib"},
+    {"name":"aristanetworks-eos"} ,
+    {"name":"aristanetworks-netdev_stdlib_eos"} 
+  ]
+}
