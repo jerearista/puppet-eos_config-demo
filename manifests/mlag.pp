@@ -6,6 +6,7 @@ class eos_config::mlag (
   $peer_address,
   $peer_link,
 )  {
+  require Class['eos_config']
 
   eos_vlan { '4094':
     vlan_name => 'MLAG_Control_Plane',

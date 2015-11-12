@@ -49,8 +49,7 @@ class eos_config::l3interfaces (
   $l3interfaces = hiera('l3interfaces', {}),
   $purge = false,
   ) {
-
-  require eos_config
+  require Class['eos_config']
 
   $defaults = {
     ensure => present,

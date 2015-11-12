@@ -1,5 +1,6 @@
-Facter.add('lldp_neighbors') do
+Facter.add(:lldp_neighbors) do
   confine :operatingsystem => "AristaEOS"
+  confine :feature => :rbeapi
 
   setcode do
     require 'rbeapi/client'

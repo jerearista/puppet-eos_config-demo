@@ -2,6 +2,7 @@
 message: "This node is using AristaEOS OS data"
 
 classes:
+  - eos_config
   - eos_config::snmp
   - eos_config::vlans
   - eos_config::syslog_servers
@@ -9,6 +10,18 @@ classes:
 #  - eos_ntp_server
 #eos_ntp_server::name: 10.68.49.204
 #eos_ntp_server::ensure: present
+
+# Set rubygem versions for rbeapi & pre-reqs
+eos_config::inifile_ver: '3.0.0'
+eos_config::net_http_unix_ver: '0.2.1'
+eos_config::netaddr_ver: '1.5.0'
+eos_config::rbeapi_ver: '0.3.0'
+
+# Since switched don't have access to rubygems.org, provide the files:
+eos_config::inifile_path: puppet:///modules/eos_config/file/inifile-3.0.0.gem
+eos_config::net_http_unix_path: puppet:///modules/eos_config/file/net_http_unix-0.2.1.gem
+eos_config::netaddr_path: puppet:///modules/eos_config/file/netaddr-1.5.0.gem
+eos_config::rbeapi_path: puppet:///modules/eos_config/file/rbeapi-0.3.0.gem
 
 vlans:
   1: { vlan_name: default }

@@ -3,6 +3,7 @@ class eos_config::ntp (
   $source_interface = hiera('ntp::source_interface', undef),
   $servers          = hiera('ntp::servers')
 ) {
+  require Class['eos_config']
 
   $defaults = {
     ensure => present,

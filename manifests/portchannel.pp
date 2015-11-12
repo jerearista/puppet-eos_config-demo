@@ -2,6 +2,7 @@ class eos_config::portchannel (
   $port_channel,
   $members = [],
 ) {
+  require Class['eos_config']
 
   eos_portchannel { $port_channel:
     ensure    => present,
