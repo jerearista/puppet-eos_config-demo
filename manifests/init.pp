@@ -10,7 +10,8 @@ class eos_config (
 ) {
 
   Package {
-    provider => puppetagent_gem,
+    #provider => puppetagent_gem,
+    provider => puppet_gem,
   }
 
   if $inifile_path {
