@@ -77,7 +77,7 @@ class eos_config::eapi_conf (
   $ensure_me = $no_file?{
                 false => file,
                 true  => absent,
-              },
+              }
 
   file { 'eapi.conf':
     ensure  => $ensure_me,
