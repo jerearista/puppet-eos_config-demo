@@ -16,7 +16,7 @@ class eos_config (
   if $inifile_path {
     $inifile = "/persist/sys/inifile-${inifile_ver}.gem"
     file { 'inifile':
-      path => $inifile,
+      path   => $inifile,
       source => $inifile_path,
       before => Package['inifile'],
     }
