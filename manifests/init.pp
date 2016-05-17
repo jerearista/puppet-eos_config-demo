@@ -24,6 +24,7 @@ class eos_config (
   #  $inifile = undef
   }
 
+  # changed something
   if $net_http_unix_path {
     $net_http_unix = "/persist/sys/net_http_unix-${net_http_unix_ver}.gem"
     file { 'net_http_unix':
