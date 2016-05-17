@@ -15,7 +15,7 @@ describe 'eos_config::vlans' do
   context 'with basic parameters' do
     #it { should contain_class('eos_vlan') }
 
-    it { should have_resource_count(5) }
+    it { should have_resource_count(9) }
     it { should have_eos_vlan_resource_count(4) }
 
     it { is_expected.to contain_eos_vlan('1') }
@@ -29,7 +29,7 @@ describe 'eos_config::vlans' do
 
     #it { should contain_class('eos_vlan') }
 
-    it { should have_resource_count(5) }
+    it { should have_resource_count(9) }
     it { should have_eos_vlan_resource_count(4) }
 
 
