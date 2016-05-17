@@ -27,7 +27,7 @@ class eos_config (
   if $net_http_unix_path {
     $net_http_unix = "/persist/sys/net_http_unix-${net_http_unix_ver}.gem"
     file { 'net_http_unix':
-      path => $net_http_unix,
+      path   => $net_http_unix,
       source => $net_http_unix_path,
       before => Package['net_http_unix'],
     }
