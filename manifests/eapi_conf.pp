@@ -74,11 +74,13 @@ class eos_config::eapi_conf (
 
   #notify { "$::operatingsystemrelease -> $major, $minor, $patch - http_local: $http_local": }
 
-  file { 'eapi.conf':
-    ensure  => $no_file?{
+  $ensure_me = $no_file?{
                 false => file,
                 true  => absent,
               },
+
+  file { 'eapi.conf':
+    ensure  => $ensure_me,
     path    => '/mnt/flash/eapi.conf',
     content => template('eos_config/eapi.conf.erb'),
     #require => Package['rbeapi'],

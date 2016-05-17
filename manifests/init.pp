@@ -38,7 +38,7 @@ class eos_config (
   if $netaddr_path {
     $netaddr = "/persist/sys/netaddr-${netaddr_ver}.gem"
     file { 'netaddr':
-      path => $netaddr,
+      path   => $netaddr,
       source => $netaddr_path,
       before => Package['netaddr'],
     }
@@ -49,7 +49,7 @@ class eos_config (
   if $rbeapi_path {
     $rbeapi = "/persist/sys/rbeapi-${rbeapi_ver}.gem"
     file { 'rbeapi':
-      path => $rbeapi,
+      path   => $rbeapi,
       source => $rbeapi_path,
       before => Package['rbeapi'],
     }
