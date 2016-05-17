@@ -10,13 +10,13 @@ class eos_config (
 ) {
 
   Package {
-    provider => puppetagent_gem,
+    provider => puppet_gem,
   }
 
   if $inifile_path {
     $inifile = "/persist/sys/inifile-${inifile_ver}.gem"
     file { 'inifile':
-      path => $inifile,
+      path   => $inifile,
       source => $inifile_path,
       before => Package['inifile'],
     }
@@ -27,7 +27,7 @@ class eos_config (
   if $net_http_unix_path {
     $net_http_unix = "/persist/sys/net_http_unix-${net_http_unix_ver}.gem"
     file { 'net_http_unix':
-      path => $net_http_unix,
+      path   => $net_http_unix,
       source => $net_http_unix_path,
       before => Package['net_http_unix'],
     }
@@ -38,7 +38,7 @@ class eos_config (
   if $netaddr_path {
     $netaddr = "/persist/sys/netaddr-${netaddr_ver}.gem"
     file { 'netaddr':
-      path => $netaddr,
+      path   => $netaddr,
       source => $netaddr_path,
       before => Package['netaddr'],
     }
@@ -49,7 +49,7 @@ class eos_config (
   if $rbeapi_path {
     $rbeapi = "/persist/sys/rbeapi-${rbeapi_ver}.gem"
     file { 'rbeapi':
-      path => $rbeapi,
+      path   => $rbeapi,
       source => $rbeapi_path,
       before => Package['rbeapi'],
     }
