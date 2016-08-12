@@ -1,6 +1,6 @@
 {
   "name": "jerearista-eos_config",
-  "version": "0.2.0",
+  "version": "0.2.0-pre",
   "author": "Arista Networks, EOS+ Consulting Services",
   "summary": "Sample manifest module for configuring Arista EOS devices",
   "license": "BSD-3-Clause",
